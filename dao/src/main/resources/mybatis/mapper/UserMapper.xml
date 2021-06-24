@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.lrx.dao.UserMapper">
+
+    <select id="selectUserById" resultType="UserStrator">
+        select * from user_strator where id = #{id}
+    </select>
+
+    <insert id="insertUser" parameterType="UserStrator">
+        insert into user_strator(user_name,user_phone,user_sex,user_kind,user_password)
+        values (#{userName},#{userPhone},#{userSex},#{userKind},#{userPassword})
+    </insert>
+
+    <select id="selectUserByPhoneAndPassword" resultType="UserStrator">
+        select * from user_strator where (user_phone=#{userPhoneOrCard} or user_card=#{userPhoneOrCard}) and user_password=#{userPassword}
+    </select>
+
+    <update id="updateUserById" parameterType="UserStrator">
+        update user_strator set
+        user_name=#{userName},user_phone=#{userPhone},user_sex=#{userSex},user_card=#{userCard},user_cell=#{userCell},user_floor=#{userFloor},user_house=#{userHouse},user_address=#{userAddress},user_password=#{userPassword},user_kind=#{userKind},user_sum=#{userSum}
+        where id=#{id}
+    </update>
+
+    <update id="updateUserPassword">
+        update user_strator set user_password=#{userPassword} where id=#{id}
+    </update>
+
+    <select id="selectAllUser" resultType="UserStrator">
+        select * from user_strator
+    </select>
+
+    <delete id="deleteUsers" parameterType="list">
+        delete from user_strator where id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteUserById">
+        delete from user_strator where id=#{id}
+    </delete>
+
+    <select id="selectUserByPhoneOrCard" resultType="integer">
+        select count(*) from user_strator where user_phone=#{userPhone}
+    </select>
+
+    <select id="selectUserByPhoneOrCard2" resultType="UserStrator">
+        select * from user_strator where user_phone=#{userPhone} or user_card=#{userCard}
+    </select>
+
+    <select id="selectUserByPhoneAndCard" resultType="integer">
+        select id from user_strator where user_phone=#{userPhone} and user_card=#{userCard}
+    </select>
+
+    <select id="selectUserSum" resultType="integer">
+        select sum(user_sum) from user_strator
+    </select>
+
+    <select id="selectUserByKind" resultType="integer">
+        select count(*) from user_strator where user_kind=#{userKind}
+    </select>
+
+    <select id="selectUserByIds" parameterType="list" resultType="UserStrator">
+        select * from user_strator where id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+</mapper>

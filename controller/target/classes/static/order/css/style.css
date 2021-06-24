@@ -1,0 +1,574 @@
+/*
+<!--
+
+* 17素材vip建站专区模块代码
+* 详尽信息请看官网：http://www.17sucai.com/pins/vip
+*
+* Copyright , 温州易站网络科技有限公司版权所有
+*
+* 请尊重原创，未经允许请勿转载。
+* 在保留版权的前提下可应用于个人或商业用途
+
+-->
+*/
+html,body {
+    color: #333;
+    margin: 0;
+    height: 100%;
+    font-family: "Myriad Set Pro","Helvetica Neue",Helvetica,Arial,Verdana,sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-weight: normal;
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+a, label, button, input, select {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 0;
+}
+
+body {
+    background: #fff;
+    color: #666;
+}
+
+html, body, div, dl, dt, dd, ol, ul, li, h1, h2, h3, h4, h5, h6, p, blockquote, pre, button, fieldset, form, input, legend, textarea, th, td {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: #08acee;
+}
+
+button {
+    outline: 0;
+}
+
+button,input,optgroup,select,textarea {
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    outline: none;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    color: #666;
+}
+
+.clearfix::after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+
+.clearfix {
+}
+
+.divHeight {
+    width: 100%;
+    height: 10px;
+    background: #f5f7fc;
+    position: relative;
+    overflow: hidden;
+}
+
+.r-line {
+    position: relative;
+}
+
+.r-line:after {
+    content: '';
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    right: 0;
+    height: 100%;
+    border-right: 1px solid #D9D9D9;
+    -webkit-transform: scaleX(0.5);
+    transform: scaleX(0.5);
+    -webkit-transform-origin: 100% 0;
+    transform-origin: 100% 0;
+}
+
+.b-line {
+    position: relative;
+}
+
+.b-line:after {
+    content: '';
+    position: absolute;
+    z-index: 2;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px solid #e2e2e2;
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+    -webkit-transform-origin: 0 100%;
+    transform-origin: 0 100%;
+}
+
+.aui-arrow {
+    position: relative;
+    padding-right: 0.8rem;
+    color: #7f8699;
+    font-size: 0.85rem;
+}
+
+.aui-arrow span {
+    font-size: 0.8rem;
+    color: #9b9b9b;
+}
+
+.aui-arrow:after {
+    content: " ";
+    display: inline-block;
+    height: 6px;
+    width: 6px;
+    border-width: 2px 2px 0 0;
+    border-color: #848484;
+    border-style: solid;
+    -webkit-transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+    transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+    position: relative;
+    top: -2px;
+    position: absolute;
+    top: 50%;
+    margin-top: -6px;
+    right: 2px;
+    border-radius: 1px;
+}
+
+.aui-flex {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    padding: 15px;
+    position: relative;
+}
+
+.aui-flex-box {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    min-width: 0;
+    font-size: 14px;
+    color: #333;
+}
+
+/* 必要布局样式css */
+.aui-flexView {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+.aui-scrollView {
+    width: 100%;
+    height: 100%;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.aui-navBar {
+    height: 44px;
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    z-index: 102;
+    background: #ffffff;
+}
+
+.aui-navBar-item {
+    height: 44px;
+    min-width: 15%;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 15%;
+    -ms-flex: 0 0 15%;
+    flex: 0 0 15%;
+    padding: 0 0.9rem;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    font-size: 0.7rem;
+    white-space: nowrap;
+    overflow: hidden;
+    color: #808080;
+    position: relative;
+}
+
+.aui-navBar-item:first-child {
+    -webkit-box-ordinal-group: 2;
+    -webkit-order: 1;
+    -ms-flex-order: 1;
+    order: 1;
+    margin-right: -25%;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.aui-navBar-item:last-child {
+    -webkit-box-ordinal-group: 4;
+    -webkit-order: 3;
+    -ms-flex-order: 3;
+    order: 3;
+    -webkit-box-pack: end;
+    -webkit-justify-content: flex-end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+    font-size: 14px;
+    color: #333333;
+}
+
+.aui-center {
+    -webkit-box-ordinal-group: 3;
+    -webkit-order: 2;
+    -ms-flex-order: 2;
+    order: 2;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    height: 44px;
+    width: 80%;
+    margin-left: 22%;
+}
+
+.aui-center-title {
+    text-align: center;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+    text-overflow: ellipsis;
+    font-size: 1rem;
+    color: #333;
+}
+
+.icon {
+    width: 19px;
+    height: 19px;
+    display: block;
+    border: none;
+    float: left;
+    background-size: 19px;
+    background-repeat: no-repeat;
+}
+
+.aui-flex-box h1 {
+    color: #303741;
+    font-weight: 500;
+    font-size: 1rem;
+    overflow: hidden;
+}
+
+.aui-flex-box h2 {
+    color: #222;
+    font-weight: 500;
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
+    text-overflow: ellipsis;
+}
+
+.aui-flex-box p {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+    color: #666;
+}
+
+.aui-flex-box h3 {
+    font-size: 0.9rem;
+    color: #8a8a8a;
+    font-weight: normal;
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 0.3rem;
+}
+
+.aui-palace {
+    padding: 0.6rem 0.8rem;
+    position: relative;
+    overflow: hidden;
+    background: white;
+}
+
+.aui-palace-grid {
+    position: relative;
+    float: left;
+    padding: 1px;
+    width: 25%;
+    box-sizing: border-box;
+    margin: 10px 0;
+}
+
+.aui-palace-grid img {
+    width: 95%;
+    margin: 0 auto;
+}
+
+.aui-palace-grid p {
+    text-align: center;
+    font-size: 12px;
+    color: #919191;
+}
+
+
+
+.tab-nav {
+    height: 45px;
+    line-height: 45px;
+    display: block;
+    position: relative;
+    background: #fff;
+    z-index: 1;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.tab-nav-item {
+    height: 45px;
+    line-height: 45px;
+    position: relative;
+    text-align: center;
+    color: #585858;
+    font-size: 0.9rem;
+    display: block;
+    float: left;
+    width: 25%;
+}
+
+.tab-nav-item.tab-active {
+    /* background-color: #51bd03; */
+}
+
+.tab-nav-item.tab-active a {
+    color: #35c88c;
+    font-size: 0.95rem;
+}
+
+.tab-nav-item a {
+    display: inherit;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+.tab-panel {
+    position: relative;
+    overflow: hidden;
+}
+
+.tab-panel .tab-panel-item {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+}
+
+.tab-panel .tab-panel-item.tab-active~.tab-panel-item {
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+}
+
+.tab-panel .tab-panel-item.tab-active {
+    position: relative;
+    -webkit-transition: -webkit-transform .15s;
+    transition: -webkit-transform .15s;
+    transition: transform .15s;
+    transition: transform .15s, -webkit-transform .15s;
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+}
+
+.tab-nav-item.tab-active:before {
+    content: '';
+    width: 40%;
+    height: 3px;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    margin-left: -20%;
+    z-index: 4;
+    border-radius: 100px;
+    background-color: #35c88c;
+}
+
+.icon-return{
+    background-image:url('data:image/png;base64,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');
+
+}
+
+.icon-more{
+    background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAD+UlEQVR4Xu2Yz2tUVxTHz3kzighFsug2uFMjVWiWImRRdCHJvPvG6KIIkWi27ca6aMEEFLS7dl2DbkQZ5t2Xyca2lLropi0uTKhGLPQPiJvgj24m95YHY4mSSe57efOlxe+sz7mfcz755s3cp8IPxIBCKIQIRYNCQNEUDTIAwjDRFA0yAMIw0RQNMgDCMNEUDTIAwjDRFA0yAMIw0RQNMgDCMNEUDTIAwjDRFA0yAMIw0RQNMgDCMNEUDTIAwjDRFA0yAMIw0RQNMgDCMNEUDTIAwjDRFA0yAMIw0RQNMgDCMNEUDTIAwjDRFA0yAMIEJzpJkk+cc4dV9ZCIHBCRRyKy4r1/lmXZT4Ocd2pqas/a2to5VT3uvT+uql3n3A8i8rtzrt3pdF4Mkl/F7kGi4zj+QlVv9FtGVW+maXphEMs2Go2Poij6VkTG+pyf/7E/y7IsF1/5p6rdtxVtjPlLRPYHbPDcWvthQF1wSRzHV1R1NqTBez+bZdlcSG1oTZW7bynaGPOLiBwLHcx7fyvLsvOh9VvVxXF8QlW/L3KWc+7IwsLCcpGefrVV795XtDHmkoh8XXRoVb2Ypul3Rfs21k9MTHxQq9V+E5GDBc/5uV6vn2q1Wn8X7HurfBC7byX6oYh8XGLgJ9bakRJ9/7bEcXxGVe+VOUNVP03T9E6Z3jc9xpjKd99U9NjYWH1oaOiViOwuM/D6+vrBTqfztExv3mOM+VJErpbsv2at/apkr8zMzOxaXV19WfXum4o2xuQ/4R6XHVZEpq2182X74zi+q6pny/SrajtN09NlevOeRqMxEkXRH2X7++1O0e8YhYoeHR3dNTw8XPm/T2hK3ptHR+85WfkXQqjoJEnOeu/vhtZvrPtffRnmg293I+onoYqfd5OTk/u63e6vvat+Ed8Put3uqcXFxddFmt6tHcTulV5YROS2tXZqJ0u+6W02myedc/eLnBVF0dF2u71UpKdfbdELy3a7/6ev4EmSzHrvr4SIU9W5NE2Drush5/Uen5W9fthWdA94WUSubzHgvLV2OnSBInXNZvOIc+6bfi+VvPdPVfVza22h9IfOYIypZPcg0b1n9okoika89/m1OH9NuuS9X1HVP621P4YOXqZufHx8b71eNyIyoqoHnHNdVV3O2bVa7X6r1Vorc25oT/7eZae7B4sOHYp1mxugaFAyKJqiQQZAGCaaokEGQBgmmqJBBkAYJpqiQQZAGCaaokEGQBgmmqJBBkAYJpqiQQZAGCaaokEGQBgmmqJBBkAYJpqiQQZAGCaaokEGQBgmmqJBBkAYJpqiQQZAGCaaokEGQBgmmqJBBkAYJpqiQQZAGCaaokEGQBgmGiT6H+o0X2rEiRoSAAAAAElFTkSuQmCC');
+}
+
+.aui-ad-img{
+    width:95px;
+    height:95px;
+    overflow:hidden;
+    border-radius:5px;
+    margin-right:15px;
+}
+
+.aui-tag{
+    margin-bottom:0.2rem;
+    display:block;
+}
+.aui-tag em img{
+    width:14px;
+    float:left;
+    margin:2px 2px 0 2px;
+}
+
+.aui-tag  i{
+    font-style:normal;
+    color:#333333;
+    font-size:14px;
+    margin-left:5px;
+
+}
+
+.aui-text h3{
+    color:#f23a3a;
+    font-size:25px;
+    font-weight:normal;
+}
+
+.aui-text h3 i{
+    font-style:normal;
+    font-size:4px;
+    font-style:normal;
+    font-weight:normal;
+}
+
+.aui-info em{
+    color:#35c88c;
+    border-radius:3px;
+    border:1px solid #35c88c;
+    font-size:12px;
+    font-style:normal;
+    padding:1px 5px;
+}
+
+.aui-flex-item{
+    display:block;
+    background:#fff;
+}
+
+.aui-pic{
+    padding:0 0 5px 15px;
+}
+.aui-pic p{
+    color:#333333;
+    font-size:13px;
+}
+
+.aui-flex-item .aui-flex{
+    padding:15px 15px 5px 15px;
+}
+
+.aui-button button{
+    background: #e1dede;
+    color: #808080;
+    border-radius: 100px;
+    border: none;
+    padding: 4px 14px;
+    font-size: 12px;
+}
+
+.aui-button .blue{
+    background:#2ede96;
+    color:#fff;
+}
+
+.aui-flex-item .aui-border{
+    border-bottom:8px solid #f2f2f2;
+    padding-bottom:10px;
+    padding-top:10px;
+}
+
+.aui-pay-tag{
+    color:#b5b5b5;
+    font-size:14px;
+}
+.aui-pay-tag i{
+    background: #2ede96;
+    color: #fff;
+    border-radius: 2px;
+    border: none;
+    padding: 1px 4px;
+    font-size: 12px;
+    font-style:normal;
+    margin-right:5px;
+    font-weight:bold;
+}

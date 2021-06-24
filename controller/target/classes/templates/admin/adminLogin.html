@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8">
+<title>管理员注册登录</title>
+<link rel="stylesheet" th:href="@{/css/style.css}">
+    <script type="text/javascript" th:src="@{/js/jquery-3.6.0.min.js}" ></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#btn").click(function () {
+                //将表单中的数据弄成地址栏的格式
+                var adminPassword = $("#adminPassword1").val();
+                var adminPhoneOrCard = $("#adminPhoneOrCard").val();
+                $.ajax({
+                    url: "/admin/login",
+                    type: "post",
+                    //必须设置，保证你提交的数据和后台返回是同步的
+                    async: false,
+                    data: {"adminPhoneOrCard": adminPhoneOrCard,"adminPassword": adminPassword},
+                    dataType: 'json',
+                    success: function (data) {
+                        if(data.code == 1){
+                            alert(data.message);
+                            window.location.href="/index"
+                        }else {
+                            alert(data.message);
+                            $("#adminPhoneOrCard").val(null);
+                            $("#adminPassword1").val(null);
+                            $("#adminPhoneOrCard").focus();
+                        }
+                    }
+                });
+                //避免再次提交出错
+                return false;
+            });
+            $("#btn1").click(function () {
+                window.location.href="/adminPassword";
+            });
+
+            $("#btn2").click(function () {
+                //将表单中的数据弄成地址栏的格式
+                var adminName = $("#adminName").val();
+                var adminPhone = $("#adminPhone").val();
+                var adminCard = $("#adminCard").val();
+                var adminAddress = $("#adminAddress").val();
+                var adminPassword = $("#adminPassword").val();
+                if (adminName==null||adminName==""||adminPhone==null||adminPhone==""||adminCard==null||adminCard==""||adminAddress==null||adminAddress==""||adminPassword==null||adminPassword==""){
+                    alert("字段不能为空")
+                    return ;
+                }
+                $.ajax({
+                    url: "/admin/register",
+                    type: "post",
+                    //必须设置，保证你提交的数据和后台返回是同步的
+                    async: false,
+                    data: {"adminName": adminName,
+                        "adminPhone": adminPhone,
+                        "adminCard": adminCard,
+                        "adminAddress": adminAddress,
+                        "adminPassword": adminPassword,
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if(data.code == 1){
+                            alert(data.message);
+                        }else {
+                            alert(data.message);
+                            $("#adminPhone").val(null);
+                            $("#adminCard").val(null);
+                            $("#adminPassword").val(null);
+                            $("#adminPhone").focus();
+                        }
+                    }
+                });
+                //避免再次提交出错
+                return false;
+            });
+
+        });
+    </script>
+</head>
+
+<body>
+    <div class="content">
+        <div class="form sign-in">
+            <h2>欢迎回来</h2>
+            <label>
+                <span>电话或身份证</span>
+                <input id="adminPhoneOrCard" type="text" />
+            </label>
+            <label>
+                <span>密码</span>
+                <input id="adminPassword1" type="password" />
+            </label>
+            <p class="forgot-pass"><a id="btn1">忘记密码？</a></p>
+            <button id="btn" type="button" class="submit">登 录</button>
+        </div>
+        <div class="sub-cont">
+            <div class="img">
+                <div class="img__text m--up">
+                    <h2>还未注册？</h2>
+                    <p>立即注册，发现大量机会！</p>
+                </div>
+                <div class="img__text m--in">
+                    <h2>已有帐号？</h2>
+                    <p>有帐号就登录吧，好久不见了！</p>
+                </div>
+                <div class="img__btn">
+                    <span class="m--up">注 册</span>
+                    <span class="m--in">登 录</span>
+                </div>
+            </div>
+            <div class="form sign-up">
+                <h2>立即注册</h2>
+                <label>
+                    <span>用户名</span>
+                    <input id="adminName" type="text" />
+                </label>
+                <label>
+                    <span>电话</span>
+                    <input id="adminPhone" type="text" />
+                </label>
+                <label>
+                    <span>身份证</span>
+                    <input id="adminCard" type="text" />
+                </label>
+                <label>
+                    <span>居住地址</span>
+                    <input id="adminAddress" type="text" />
+                </label>
+                <label>
+                    <span>密码</span>
+                    <input id="adminPassword" type="password" />
+                </label>
+                <button id="btn2" type="button" class="submit">注 册</button>
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{/js/script.js}"></script>
+</body>
+
+</html>

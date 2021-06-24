@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <title>
+            欢迎界面
+        </title>
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="format-detection" content="telephone=no">
+        <link rel="stylesheet" th:href="@{/css/main.css}" media="all">
+        <link rel="stylesheet" th:href="@{/lib/bootstrap/css/bootstrap.css}" media="all">
+        <link rel="stylesheet" th:href="@{/lib/bootstrap/js/bootstrap.min.js}" media="all">
+    </head>
+    <body>
+    <style type="text/css">
+	legend { display: block; width:100px; border-bottom:0px; font-family: "Microsoft YaHei","Helvetica Neue";}
+	legend a{ color:#666;} legend a:hover{ text-decoration:none;}
+	.layui-table{ font-family: "Microsoft YaHei","Helvetica Neue";}
+	</style>
+        <div class="x-body">
+            <blockquote class="layui-elem-quote">
+                欢迎使用社区工作管理系统！<span class="f-14">v1.0</span> &nbsp;&nbsp;登录次数：520
+            </blockquote>
+<div class="row">
+            <div class="col-xs-6 col-sm-4 col-md-3">
+                <section class="panel">
+                    <div class="symbol bgcolor-blue"> <i class=" iconfont icon-dashaxiaoqudizhi01"></i>
+                    </div>
+                    <div class="value tab-menu" bind="1">
+                        <a href="javascript:;" data-parent="true" data-title="总栋数"><i class="iconfont " data-icon=""></i>
+                            <h1>45</h1>
+                        </a>
+
+                        <a href="javascript:;" data-parent="true" data-title="总栋数"> <i class="iconfont " data-icon=""></i><span>总栋数</span></a>
+
+                    </div>
+                </section>
+            </div>
+            <div class="col-xs-6 col-sm-4 col-md-3">
+                <section class="panel">
+                    <div class="symbol bgcolor-commred"> <i class="iconfont icon-lvhuaxiaoqu"></i>
+                    </div>
+                    <div class="value tab-menu" bind="1">
+                        <a href="javascript:;"  data-parent="true" data-title="总户数"> <i class="iconfont " data-icon=""></i>
+                            <h1 th:text="${ownerSum}"></h1>
+                        </a>
+
+                        <a href="javascript:;"  data-parent="true" data-title="总户数"> <i class="iconfont " data-icon=""></i><span>总户数</span></a>
+
+                    </div>
+                </section>
+            </div>
+
+            <div class="col-xs-6 col-sm-4 col-md-3">
+                <section class="panel">
+                    <div class="symbol bgcolor-dark-green"> <i class="iconfont icon-yezhuxian"></i>
+                    </div>
+                    <div class="value tab-menu" bind="1">
+                        <a href="javascript:;"  data-parent="true" data-title="总人数"> <i class="iconfont " data-icon=""></i>
+                            <h1 th:text="${sum}"></h1>
+                        </a>
+                        <a href="javascript:;"  data-parent="true" data-title="总人数"> <i class="iconfont " data-icon=""></i><span>总人数</span></a>
+                    </div>
+                </section>
+            </div>
+
+            <div class="col-xs-6 col-sm-4 col-md-3">
+                <section class="panel">
+                    <div class="symbol bgcolor-yellow-green"> <i class="layui-icon" style="top: 3px;">&#xe613;</i>
+                    </div>
+                    <div class="value tab-menu" bind="1">
+                        <a href="javascript:;"  data-parent="true" data-title="租户数量"> <i class="iconfont " data-icon=""></i>
+                            <h1 th:text="${lesseeSum}"></h1>
+                        </a>
+                        <a href="javascript:;"  data-parent="true" data-title="租户数量"> <i class="iconfont " data-icon=""></i><span>租户数量</span></a>
+                    </div>
+                </section>
+            </div>
+
+        </div>
+            
+            <fieldset class="layui-elem-field layui-field-title site-title">
+              <legend><a name="default">信息统计</a></legend>
+            </fieldset>
+             
+        <!--相关统计-->
+        <div class="row">
+        <div class="col-sm-4">
+         <section class="panel">
+                    <div class="panel-heading">最新活动</div>
+                    <div class="panel-body">
+                        <ul class="list-group clear-list m-t">
+                            <li th:each="activity:${allActivity}" class="list-group-item">
+                                <span class="float-right"> [[${activity.getStartTime()}]]
+                                    &nbsp;
+                                    <b th:text="${activity.getActivityStatus()}" th:style="${activity.getActivityStatus()=='进行中'} ? 'color: #2fb9d4' : 'color: #FF5722'"></b>
+                                </span>
+                                <span class="label label-danger">[[${allActivity.indexOf(activity)}+1]]</span>
+                                [[${activity.getActivityName()}]]
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+        </div>
+            <div class="col-sm-4">
+                <section class="panel">
+                    <div class="panel-heading">最新保修</div>
+                    <div class="panel-body">
+                        <ul class="list-group clear-list m-t">
+                            <li th:each="device:${allDevice}" class="list-group-item">
+                                <span class="float-right"> [[${device.getDeviceTime()}]]
+                                    &nbsp;
+                                    <b th:text="${device.getDeviceStatus()}" th:style="${device.getDeviceStatus()=='已维修'} ? 'color: #2fb9d4' : 'color: #FF5722'"></b>
+                                </span>
+                                <span class="label label-danger">[[${allDevice.indexOf(device)}+1]]</span>
+                                [[${device.getDeviceName()}]]
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+        <div class="col-sm-4">
+            <section class="panel">
+                <div class="panel-heading">系统信息</div>
+                <div class="layui-card">
+
+                    <div class="layui-card-body ">
+
+                        <table class="layui-table">
+                            <thead>
+                            <tr>
+                                <th colspan="4" scope="col">服务器信息</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th>服务器计算机名</th>
+                                <td><span id="lbServerName">http://127.0.0.1/</span></td>
+
+                            </tr>
+                            <tr>
+                                <td>服务器IP地址</td>
+                                <td>192.168.1.1</td>
+                            </tr>
+                            <tr>
+                                <td>服务器域名</td>
+                                <td>www.lrx.xyz</td>
+
+                            </tr>
+                            <tr>
+                                <td>服务器端口 </td>
+                                <td>80</td>
+                            </tr>
+                            <tr>
+                                <td>服务器脚本超时时间 </td>
+                                <td>30000秒</td>
+                            </tr>
+                            <tr>
+                                <td>服务器的语言种类 </td>
+                                <td>Chinese (People's Republic of China)</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        </div>
+    
+        <script th:src="@{/lib/layui/layui.js}" charset="utf-8"></script>
+        <script th:src="@{/js/jquery.min.js}"></script>
+        <script th:src="@{/js/echarts.min.js}"></script>
+            
+        </div>
+        <div class="layui-footer footer footer-demo">
+            <div class="layui-main">
+                <p>
+                    <a href="/">
+                        Copyright ©2017 17sucai.com All Rights Reserved.
+                    </a>
+                </p>
+                
+            </div>
+        </div>
+        
+    </body>
+</html>

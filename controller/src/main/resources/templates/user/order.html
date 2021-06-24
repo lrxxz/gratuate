@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>我的订单页面</title>
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <link rel="stylesheet" type="text/css" th:href="@{/order/css/style.css}">
+</head>
+<body>
+<section class="aui-flexView">
+    <header class="aui-navBar aui-navBar-fixed b-line">
+        <a href="javascript:;" class="aui-navBar-item">
+            <i class="icon icon-return"></i>
+        </a>
+        <div class="aui-center">
+            <span class="aui-center-title">我的订单</span>
+        </div>
+        <a href="javascript:;" class="aui-navBar-item">
+            <i class="icon icon-more"></i>
+        </a>
+    </header>
+    <section class="aui-scrollView">
+        <div class="aui-tab" data-ydui-tab="">
+            <ul class="tab-nav b-line">
+                <li class="tab-nav-item tab-active">
+                    <a href="javascript:;">
+                        <span>全部</span>
+                    </a>
+                </li>
+                <li class="tab-nav-item ">
+                    <a href="javascript:;">
+                        <span>已付款</span>
+                    </a>
+                </li>
+                <li class="tab-nav-item">
+                    <a href="javascript:;">
+                        <span>配送中</span>
+                    </a>
+                </li>
+                <li class="tab-nav-item">
+                    <a href="javascript:;">
+                        <span>已收货</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-panel">
+                <div class="tab-panel-item tab-active">
+                    <a th:each="order:${orders}" href="javascript:;" class="aui-flex-item">
+                        <div class="aui-flex">
+                            <div class="aui-ad-img">
+                                <img th:src="@{@{http://localhost:8080/lrx}+${order.getCommodityStrator().getCommodityPictures().get(0).getPictureAddress()}}" alt="">
+                            </div>
+                            <div class="aui-flex-box">
+                                <h2 th:text="${order.getCommodityStrator().getCommodityName()}"></h2>
+                                <p th:text="${order.getOrderDate()}"></p>
+                                <div class="aui-info">
+                                    <em th:text="${order.getOrderNum()}"></em>
+                                    <em th:text="${order.getCommodityStrator().getCommodityPrice()}"></em>
+                                </div>
+                            </div>
+                            <div class="aui-text">
+                                <h3>
+                                    <i>￥</i>
+                                    [[${order.getOrderPrice()}]]
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="aui-flex aui-border">
+                            <div class="aui-flex-box">
+                                <span th:if="${order.getOrderStatus()==0}? true : false" class="aui-pay-tag">
+                                    <i>付</i>
+                                    已付款
+                                </span>
+                                <span th:if="${order.getOrderStatus()==1}? true : false" class="aui-pay-tag">
+                                    <i>送</i>
+                                    配送中
+                                </span>
+                                <span th:if="${order.getOrderStatus()==2}? true : false" class="aui-pay-tag">
+                                    <i>收</i>
+                                    已收货
+                                </span>
+                            </div>
+                            <div class="aui-button">
+                                <button th:if="${order.getOrderStatus()==2}? true : false" class="blue" th:onclick="|order_del(this,${order.getId()})|">删除订单</button>
+                                <button th:if="${order.getOrderStatus()==2}? false : true" class="blue" th:onclick="|order_up(this,${order.getId()})|">确认收货</button>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="tab-panel-item ">
+                    <a th:each="order0:${orders0}" href="javascript:;" class="aui-flex-item">
+                        <div class="aui-flex">
+                            <div class="aui-ad-img">
+                                <img th:src="@{@{http://localhost:8080/lrx}+${order0.getCommodityStrator().getCommodityPictures().get(0).getPictureAddress()}}" alt="">
+                            </div>
+                            <div class="aui-flex-box">
+                                <h2 th:text="${order0.getCommodityStrator().getCommodityName()}"></h2>
+                                <p th:text="${order0.getOrderDate()}"></p>
+                                <div class="aui-info">
+                                    <em th:text="${order0.getOrderNum()}"></em>
+                                    <em th:text="${order0.getCommodityStrator().getCommodityPrice()}"></em>
+                                </div>
+                            </div>
+                            <div class="aui-text">
+                                <h3>
+                                    <i>￥</i>
+                                    [[${order0.getOrderPrice()}]]
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="aui-flex aui-border">
+                            <div class="aui-flex-box">
+                                        <span class="aui-pay-tag">
+                                            <i>付</i>
+                                            已付款
+                                        </span>
+                            </div>
+                            <div class="aui-button">
+                                <button class="blue" th:onclick="|order_up(this,${order0.getId()})|">确认收货</button>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="tab-panel-item ">
+                    <a th:each="order1:${orders1}" href="javascript:;" class="aui-flex-item">
+                        <div class="aui-flex">
+                            <div class="aui-ad-img">
+                                <img th:src="@{@{http://localhost:8080/lrx}+${order1.getCommodityStrator().getCommodityPictures().get(0).getPictureAddress()}}" alt="">
+                            </div>
+                            <div class="aui-flex-box">
+                                <h2 th:text="${order1.getCommodityStrator().getCommodityName()}"></h2>
+                                <p th:text="${order1.getOrderDate()}"></p>
+                                <div class="aui-info">
+                                    <em th:text="${order1.getOrderNum()}"></em>
+                                    <em th:text="${order1.getCommodityStrator().getCommodityPrice()}"></em>
+                                </div>
+                            </div>
+                            <div class="aui-text">
+                                <h3>
+                                    <i>￥</i>
+                                    [[${order1.getOrderPrice()}]]
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="aui-flex aui-border">
+                            <div class="aui-flex-box">
+                                        <span class="aui-pay-tag">
+                                            <i>送</i>
+                                            配送中
+                                        </span>
+                            </div>
+                            <div class="aui-button">
+                                <button class="blue" th:onclick="|order_up(this,${order1.getId()})|">确认收货</button>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="tab-panel-item ">
+                    <a th:each="order2:${orders2}" href="javascript:;" class="aui-flex-item">
+                        <div class="aui-flex">
+                            <div class="aui-ad-img">
+                                <img th:src="@{@{http://localhost:8080/lrx}+${order2.getCommodityStrator().getCommodityPictures().get(0).getPictureAddress()}}" alt="">
+                            </div>
+                            <div class="aui-flex-box">
+                                <h2 th:text="${order2.getCommodityStrator().getCommodityName()}"></h2>
+                                <p th:text="${order2.getOrderDate()}"></p>
+                                <div class="aui-info">
+                                    <em th:text="${order2.getOrderNum()}"></em>
+                                    <em th:text="${order2.getCommodityStrator().getCommodityPrice()}"></em>
+                                </div>
+                            </div>
+                            <div class="aui-text">
+                                <h3>
+                                    <i>￥</i>
+                                    [[${order2.getOrderPrice()}]]
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="aui-flex aui-border">
+                            <div class="aui-flex-box">
+                                        <span class="aui-pay-tag">
+                                            <i>收</i>
+                                            已收货
+                                        </span>
+                            </div>
+                            <div class="aui-button">
+                                <button class="blue" th:onclick="|order_del(this,${order2.getId()})|">删除订单</button>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+<script type="text/javascript" th:src="@{/order/js/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/order/js/tab.js}"></script>
+<script>
+    function order_del(obj,id){
+            $.ajax({
+                type:"post",
+                url:"/user/deleteOrder",
+                async: false,
+                data:{id:id},
+                dataType:"json",
+                success:function(data){
+                    if(data.code==1){
+                        window.location.href="/user/order"
+                        return false;
+                    } else{
+                        return false;
+                    }
+                }
+            });
+    }
+
+    function order_up(obj,id){
+        $.ajax({
+            type:"post",
+            url:"/user/orderYes",
+            async: false,
+            data:{id:id},
+            dataType:"json",
+            success:function(data){
+                if(data.code==1){
+                    window.location.href="/user/order"
+                    return false;
+                } else{
+                    return false;
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.lrx.dao.ActivityMapper">
+
+    <select id="selectOneActivity" resultType="ActivityStrator">
+        select * from activity_strator where id = #{id}
+    </select>
+
+    <insert id="insertActivity" parameterType="ActivityStrator">
+        insert into activity_strator(activity_name,activity_address,activity_unit,start_time,end_time,activity_status,activity_message,activity_sum)
+        values (#{activityName},#{activityAddress},#{activityUnit},#{startTime},#{endTime},#{activityStatus},#{activityMessage},#{activitySum})
+    </insert>
+
+    <update id="updateActivityById" parameterType="ActivityStrator">
+        update activity_strator set
+        activity_name=#{activityName},activity_address=#{activityAddress},activity_unit=#{activityUnit},start_time=#{startTime},end_time=#{endTime},activity_status=#{activityStatus},activity_message=#{activityMessage}
+        where id=#{id}
+    </update>
+
+    <select id="selectAllActivity" resultType="ActivityStrator">
+        select * from activity_strator order by start_time desc
+    </select>
+
+    <delete id="deleteActivities" parameterType="list">
+        delete from activity_strator where id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteActivity">
+        delete from activity_strator where id=#{id}
+    </delete>
+
+    <select id="selectActiveSum" resultType="integer">
+        select count(*) from activity_strator
+    </select>
+
+    <select id="selectUserActivitySum" resultType="integer">
+        select count(*) from user_activity where user_id = #{userId} and activity_id = #{activityId}
+    </select>
+
+    <insert id="insertUserActivityOne" >
+        insert into user_activity(user_id,activity_id)
+        values (#{userId},#{activityId});
+    </insert>
+
+    <update id="activitySumAnd" >
+        update activity_strator set activity_sum = activity_sum+1 where id=#{activityId}
+    </update>
+
+    <update id="activitySumMinus" >
+        update activity_strator set activity_sum = activity_sum-1 where id=#{activityId}
+    </update>
+
+    <delete id="deleteUserActivity" >
+        delete from user_activity where user_id = #{userId} and activity_id = #{activityId}
+    </delete>
+
+    <select id="selectActivityUser" resultType="integer">
+        select user_id from user_activity where activity_id = #{activityId}
+    </select>
+</mapper>

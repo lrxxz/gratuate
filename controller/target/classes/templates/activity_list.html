@@ -1,0 +1,211 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>
+        活动管理
+    </title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" th:href="@{/css/main.css}" media="all">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <script type="text/javascript" th:src="@{/lib/loading/okLoading.js}"></script>
+</head>
+<body>
+<div class="x-nav">
+            <span class="layui-breadcrumb">
+              <a><cite>首页</cite></a>
+              <a><cite>服务管理</cite></a>
+              <a><cite>活动列表</cite></a>
+            </span>
+    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"  href="javascript:location.replace(location.href);" title="刷新"><i class="layui-icon" style="line-height:30px">ဂ</i></a>
+</div>
+<div class="x-body">
+    <xblock>
+        <button class="layui-btn layui-btn-danger" onclick="delAll()">
+            <i class="layui-icon">&#xe640;</i>批量删除
+        </button>
+        <button class="layui-btn" onclick="activity_add('活动添加','/activity/activityAdd','1000','600')">
+            <i class="layui-icon">&#xe608;</i>添加
+        </button>
+        <span class="x-right" style="line-height:40px">共有数据：<span th:text="${data.size()}" class="layui-badge"></span> 条</span>
+    </xblock>
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th>
+                <input type="checkbox">
+            </th>
+            <th>
+                ID
+            </th>
+            <th>
+                活动标题
+            </th>
+            <th>
+                活动地点
+            </th>
+            <th>
+                举办单位
+            </th>
+            <th>
+                活动开始时间
+            </th>
+            <th>
+                活动截止时间
+            </th>
+            <th>
+                参加人数
+            </th>
+            <th>
+                状态
+            </th>
+            <th>
+                操作
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="activityStrator:${data}">
+            <td>
+                <input type="checkbox" th:value="${activityStrator.getId()}" name="id">
+            </td>
+            <td th:text="${activityStrator.getId()}"></td>
+            <td th:text="${activityStrator.getActivityName()}"></td>
+            <td th:text="${activityStrator.getActivityAddress()}"></td>
+            <td th:text="${activityStrator.getActivityUnit()}"></td>
+            <td th:text="${activityStrator.getStartTime()}"></td>
+            <td th:text="${activityStrator.getEndTime()}"></td>
+            <td th:text="${activityStrator.getActivitySum()}"></td>
+            <td class="td-status">
+                <span th:if="${activityStrator.getActivityStatus()=='进行中'}? true : false" th:text="${activityStrator.getActivityStatus()}"  class="layui-btn layui-btn-normal " > </span>
+                <span th:if="${activityStrator.getActivityStatus()=='已结束'}? true : false" th:text="${activityStrator.getActivityStatus()}"  class="layui-btn layui-btn-danger " > </span>
+            </td>
+            <td class="td-manage">
+                <a title="编辑" href="javascript:;" th:onclick="|activity_edit('编辑','/activity/updateActivity',${activityStrator.getId()},'1000','600')|"
+                   class="ml-5" style="text-decoration:none">
+                    <i class="layui-icon">&#xe642;</i>
+                </a>
+                <a title="删除" href="javascript:;" th:onclick="|activity_del(this,${activityStrator.getId()})|"
+                   style="text-decoration:none">
+                    <i class="layui-icon">&#xe640;</i>
+                </a>
+                <a title="查看人员列表" href="javascript:;" th:onclick="|user_list('活动人员列表','/activity/activityUsers',${activityStrator.getId()},'1000','600')|"
+                   style="text-decoration:none">
+                    <i class="layui-icon">&#xe63c;</i>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div id="page">
+        <ul class="pagination">
+            <li><a th:if="${page != 1} ? true : false" th:href="@{/activity/activityList/}+${page-1}+@{/5}">&laquo;</a></li>
+            <li><a th:text="当前页+${page}"></a></li>
+            <li><a th:text="共+${pages}+页"></a></li>
+            <li><a th:if="${page != pages} ? true : false" th:href="@{/activity/activityList/}+${page+1}+@{/5}">&raquo;</a></li>
+        </ul>
+    </div>
+</div>
+<script th:src="@{/lib/layui/layui.js}" charset="utf-8"></script>
+<script th:src="@{/js/x-layui.js}" charset="utf-8"></script>
+<script>
+    layui.use(['laydate','element','laypage','layer'], function(){
+        $ = layui.jquery;//jquery
+        laydate = layui.laydate;//日期插件
+        lement = layui.element();//面包导航
+        laypage = layui.laypage;//分页
+        layer = layui.layer;//弹出层
+        okLoading.close($);
+        //以上模块根据需要引入
+
+    });
+
+    //批量删除提交
+    function delAll () {
+        layer.confirm('确认要删除吗？',function(index){
+            //捉到所有被选中的，进行删除
+            var id_list=document.getElementsByName("id");
+            var idArray = new Array();
+            for(var i=0;i<id_list.length;i++) {
+                if (id_list[i].checked == true) {//选中为true
+                    var id = id_list[i].value;
+                    idArray.push(id);
+                }
+            }
+            if (idArray.length==0){
+                alert("请选择数据");
+                return;
+            }
+            $.ajax({
+                type:"post",
+                url:"/activity/deleteActivities",
+                async: false,
+                data:{"idArray":idArray},
+                dataType:"json",
+                success:function(data){
+                    if(data.code==1){
+                        layer.msg(data.message,{icon:6,time:1000});
+                        window.location.href="/activity/activityList/1/5"
+                        return false;
+                    } else{
+                        layer.msg(data.message,{icon:5,time:2000});
+                        return false;
+                    }
+                }
+            });
+        });
+    }
+
+    function question_show (argument) {
+        layer.msg('可以跳到前台具体问题页面',{icon:1,time:1000});
+    }
+    /*添加*/
+    function activity_add(title,url,w,h){
+        x_admin_show(title,url,w,h);
+    }
+    //编辑
+    function activity_edit (title,url,id,w,h) {
+        url = url+"?id="+id;
+        x_admin_show(title,url,w,h);
+    }
+    //查看人员列表
+    function user_list (title,url,id,w,h) {
+        url = url+"?id="+id;
+        x_admin_show(title,url,w,h);
+    }
+
+    /*删除*/
+    function activity_del(obj,id){
+        layer.confirm('确认要删除吗？',{icon:3,title:'提示信息'},function(index){
+            $.ajax({
+                type:"post",
+                url:"/activity/deleteActivity",
+                async: false,
+                data:{id:id},
+                dataType:"json",
+                success:function(data){
+                    if(data.code==1){
+                        layer.msg(data.message,{icon:6,time:1000});
+                        window.location.href="/activity/activityList/1/5"
+                        return false;
+                    } else{
+                        layer.msg(data.info,{icon:5,time:1000});return false;
+                    }
+                }
+            });
+            //发异步删除数据
+            $(obj).parents("tr").remove();
+            layer.msg('已删除!',{icon:1,time:1000});
+        });
+    }
+</script>
+
+</body>
+</html>

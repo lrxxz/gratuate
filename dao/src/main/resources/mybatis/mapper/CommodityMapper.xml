@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.lrx.dao.CommodityMapper">
+
+    <insert id="insertCommodity" parameterType="CommodityStrator" useGeneratedKeys="true" keyProperty="id">
+        insert into commodity_strator(commodity_name,commodity_mark,commodity_price,commodity_origin,kind_id)
+        values (#{commodityName},#{commodityMark},#{commodityPrice},#{commodityOrigin},#{kindId})
+    </insert>
+
+    <select id="selectAllCommodity" resultType="CommodityStrator">
+        select * from commodity_strator
+    </select>
+
+    <select id="selectAllCommodityByKind" resultType="CommodityStrator">
+        select * from commodity_strator where kind_id=#{kind}
+    </select>
+
+    <update id="updateCommodity" parameterType="CommodityStrator">
+        update commodity_strator set commodity_name=#{commodityName},commodity_mark=#{commodityMark},commodity_price=#{commodityPrice},commodity_origin=#{commodityOrigin},kind_id=#{kindId} where id=#{id}
+    </update>
+
+    <select id="selectCommodityOne" resultType="CommodityStrator">
+        select * from commodity_strator where id = #{id}
+    </select>
+
+    <delete id="deleteCommodity">
+        delete from commodity_strator where id=#{id}
+    </delete>
+
+    <delete id="deleteCommodities" parameterType="list">
+        delete from commodity_strator where id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+
+    <!-- 图片的增删改查 -->
+    <insert id="insertPicture" parameterType="list">
+        insert into commodity_picture values
+        <foreach collection="list" item="picture" index="index"
+                 separator=",">
+            (
+            #{picture.commodityId},
+            #{picture.pictureAddress}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deletePicture">
+        delete from commodity_picture where commodity_id = #{commodityId}
+    </delete>
+
+    <delete id="deletePictures" parameterType="list">
+        delete from commodity_picture where commodity_id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="selectPicture" resultType="CommodityPicture">
+        select * from commodity_picture where commodity_id=#{commodityId}
+    </select>
+</mapper>

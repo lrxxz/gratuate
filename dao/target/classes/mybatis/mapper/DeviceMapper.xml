@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.lrx.dao.DeviceMapper">
+
+    <select id="selectOneDevice" resultType="DeviceStrator">
+        select * from device_strator where id = #{id}
+    </select>
+
+    <insert id="insertDevice" parameterType="DeviceStrator">
+        insert into device_strator(device_name,user_name,user_phone,device_status,device_time,device_mark)
+        values (#{deviceName},#{userName},#{userPhone},#{deviceStatus},#{deviceTime},#{deviceMark})
+    </insert>
+
+    <insert id="insertDevice2" parameterType="DeviceStrator">
+        insert into device_strator(device_name,user_name,user_phone,device_status,device_time,device_mark,user_id)
+        values (#{deviceName},#{userName},#{userPhone},#{deviceStatus},#{deviceTime},#{deviceMark},#{userId})
+    </insert>
+
+    <update id="updateDeviceById" parameterType="DeviceStrator">
+        update device_strator set
+        device_name=#{deviceName},user_name=#{userName},user_phone=#{userPhone},device_status=#{deviceStatus},device_time=#{deviceTime},device_mark=#{deviceMark}
+        where id=#{id}
+    </update>
+
+    <select id="selectAllDevice" resultType="DeviceStrator">
+        select * from device_strator order by device_time desc
+    </select>
+
+    <select id="selectAllDevice2" resultType="DeviceStrator">
+        select * from device_strator where user_id=#{userId} order by device_time desc
+    </select>
+
+    <delete id="deleteDevices" parameterType="list">
+        delete from device_strator where id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteDevice">
+        delete from device_strator where id=#{id}
+    </delete>
+
+    <select id="selectDeviceSum" resultType="integer">
+        select count(*) from device_strator
+    </select>
+</mapper>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.lrx.dao.AdminMapper">
+
+    <select id="selectAdminStratorById" resultType="AdminStrator">
+        select * from admin_strator where id = #{id}
+    </select>
+
+    <insert id="insertAdmin" parameterType="AdminStrator">
+        insert into admin_strator(admin_name,admin_phone,admin_card,admin_address,admin_password) values (#{adminName},#{adminPhone},#{adminCard},#{adminAddress},#{adminPassword})
+    </insert>
+
+    <select id="selectAdminByPhoneAndPassword" resultType="AdminStrator">
+        select * from admin_strator where (admin_phone = #{adminPhoneOrCard} or admin_card=#{adminPhoneOrCard}) and admin_password = #{adminPassword}
+    </select>
+
+    <update id="updateAdminById" parameterType="AdminStrator">
+        update admin_strator set admin_name=#{adminName},admin_sex=#{adminSex},admin_phone=#{adminPhone},admin_card=#{adminCard},admin_address=#{adminAddress},admin_password=#{adminPassword} where id = #{id}
+    </update>
+
+    <update id="updateAdminPassword">
+        update admin_strator set admin_password = #{adminPassword} where id = #{id}
+    </update>
+
+    <select id="selectAdminByPhoneOrCard" resultType="integer">
+        select count(*) from admin_strator where admin_phone=#{adminPhone} or admin_card=#{adminCard}
+    </select>
+
+    <select id="selectAdminByPhoneOrCard2" resultType="AdminStrator">
+        select * from admin_strator where admin_phone=#{adminPhone} or admin_card=#{adminCard}
+    </select>
+
+    <select id="selectAdminByPhoneAndCard" resultType="integer">
+        select id from admin_strator where admin_phone=#{adminPhone} and admin_card=#{adminCard}
+    </select>
+
+    <select id="selectAllAdmin" resultType="AdminStrator">
+        select * from admin_strator
+    </select>
+
+</mapper>

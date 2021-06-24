@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.lrx.dao.KindMapper">
+
+    <select id="selectAllKind" resultType="CommodityKind">
+        select * from commodity_kind
+    </select>
+
+    <insert id="insertKind" parameterType="CommodityKind">
+        insert into commodity_kind(kind_name)
+        values (#{kindName})
+    </insert>
+
+    <delete id="deleteKinds" parameterType="list">
+        delete from commodity_kind where id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteKind">
+        delete from commodity_kind where id=#{id}
+    </delete>
+
+    <select id="selectOneKind" resultType="CommodityKind">
+        select * from commodity_kind where id=#{id}
+    </select>
+</mapper>

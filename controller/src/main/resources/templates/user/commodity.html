@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" th:href="@{/css-user/reset.css}">
+    <link rel="stylesheet" th:href="@{/css-user/style.css}">
+    <script type="text/javascript" th:src="@{/lib/loading/okLoading.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/main.css}" media="all">
+    <link rel="stylesheet" th:href="@{/css/font.css}">
+    <title>分类</title>
+</head>
+
+<body>
+<header>
+    <div class="inner">
+        <div class="logo">
+            <img th:src="@{/img/logo.png}" width="120px" height="44px" alt="21cake 蛋糕官网">
+        </div>
+    </div>
+</header>
+    <!-- 头部导航栏部分  start -->
+    <div class="class-content-box" style="min-height: 216px;">
+        <div class="pro-list-content">
+            <div class="pro-list-filter">
+                <dl class="cat-list">
+                    <dt>分类：</dt>
+                    <dd th:each="kind:${kinds}">
+                        <a th:text="${kind.getKindName()}" th:href="@{/user/userCommodity/}+${kind.getId()}"></a>
+                    </dd>
+                </dl>
+            </div>
+            <div class="pro-list-box">
+                <ul class="pro-list-pr">
+                    <li th:each="commodity:${data}">
+                        <div class="pro-list-su">
+                            <a href="javascript:;" th:onclick="|one_set('商品详情','/user/commodityOne','350','500',${commodity.getId()})|" class="goods-list">
+                                <img th:src="@{@{http://localhost:8080/lrx}+${commodity.getCommodityPictures().get(0).getPictureAddress()}}" alt="" class="lazy" style="display: inline;">
+                                <h3 th:text="${commodity.getCommodityName()}"></h3>
+                                <span th:text="${commodity.getCommodityPrice()}"></span>
+                            </a>
+                            <div class="label-entrance">
+                                <a >产地 ></a>
+                                <a th:text="${commodity.getCommodityOrigin()}">人气 ></a>
+                            </div>
+<!--                            th:href="@{/user/joinShop/}+${commodity.getId()}+@{/}+${session.user.getId()}"-->
+                            <a href="javascript:;" th:onclick="|join_shop(this,${commodity.getId()},${session.user.getId()})|" class="pro-list-addcart">
+                                <i></i>
+                                加入购物车
+                            </a>
+                            <div class="label">
+                                <img th:src="@{/img/label-1.png}" alt="">
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+<script>
+    function join_shop(obj,commodityId,userId) {
+        $.ajax({
+            type: "post",
+            url: "/user/joinShop",
+            async: false,
+            data: {
+                commodityId: commodityId,
+                userId: userId
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.code == 1) {
+                    alert(data.message);
+                } else {
+                    alert(data.message);
+                }
+            }
+        });
+    }
+</script>
+<script th:src="@{/lib/layui/layui.js}" charset="utf-8"></script>
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/x-layui.js}" charset="utf-8"></script>
+<script>
+    layui.use(['laydate','element','laypage','layer'], function(){
+        $ = layui.jquery;//jquery
+        laydate = layui.laydate;//日期插件
+        lement = layui.element();//面包导航
+        laypage = layui.laypage;//分页
+        layer = layui.layer;//弹出层
+        okLoading.close($)
+        //以上模块根据需要引入
+
+    });
+
+    function one_set(title,url,w,h,id){
+        url = url+"?id="+id;
+        x_admin_show(title,url,w,h);
+    }
+</script>
+</body>
+
+
+</html>

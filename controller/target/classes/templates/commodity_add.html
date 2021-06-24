@@ -1,0 +1,194 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>
+        商品添加
+    </title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" th:href="@{/css/main.css}" media="all">
+    <script type="text/javascript" th:src="@{/lib/loading/okLoading.js}"></script>
+    <style>
+        .imgs{display: none;}
+        .picture{display: none;}
+    </style>
+
+</head>
+<body>
+
+<div class="x-body">
+    <form class="layui-form layui-form-pane" action="" id="add">
+        <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+            <input type="hidden" name="id" value="">
+            <div class="layui-tab-content" >
+                <div class="layui-tab-item layui-show">
+                    <!--<form class="layui-form layui-form-pane" action="" id="add">-->
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class='x-red'>*</span>所属种类
+                        </label>
+                        <div class="layui-input-block">
+                            <select name="kindId" id="kindId" lay-filter="aihao">
+                                <option value="0">---请选择所属种类---</option>
+                                <option th:each="kind:${allKinds}" th:value="${kind.getId()}" >[[${kind.getKindName()}]]</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class='x-red'>*</span>商品名称
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" name="commodityName" autocomplete="off" placeholder="输入商品名称"
+                                   class="layui-input" lay-verify="required" lay-reqtext="商品名称是必填项，岂能为空？" value="">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class='x-red'>*</span>商品产地
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" name="commodityOrigin" autocomplete="off" placeholder="请输入商品产地"
+                                   class="layui-input" lay-verify="required" value="">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <span class='x-red'>*</span>商品价格
+                        </label>
+                        <div class="layui-input-block">
+                            <input type="text" name="commodityPrice" autocomplete="off" placeholder="请输入商品价格"
+                                   class="layui-input" lay-verify="required" value="">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="link" class="layui-form-label">
+                            <span class="x-red">*</span>成员照片
+                        </label>
+                        <div class="layui-input-inline">
+                            <div class="site-demo-upbar">
+                                <div class=" layui-upload-button" style="border:#FFFFFF ;">
+                                    <button type="button" class="layui-btn" id="test1">
+                                        <i class="layui-icon">&#xe67c;</i>上传图片
+                                    </button>
+                                    <input class="layui-upload" type="file" accept="undefined" id="previewImg" name="images" multiple="multiple"  onchange="upload(this)">
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item imgs" id="imgshow">
+                        <label  class="layui-form-label">成员照片</label>
+                    </div>
+
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label">
+                            <span class='x-red'>*</span>商品描述
+                        </label>
+                        <div class="layui-input-block">
+                            <textarea placeholder="请输入内容" name="commodityMark" class="layui-textarea" lay-verify="required" ></textarea>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <button class="layui-btn" type="submit" lay-filter="add" lay-submit="">
+                            保存
+                        </button>
+                    </div>
+                    <!--</form>-->
+                    <div style="height:100px;"></div>
+                </div>
+
+
+
+            </div>
+
+        </div>
+    </form>
+</div>
+<script th:src="@{/lib/layui/layui.js}" charset="utf-8"></script>
+<script th:src="@{/js/x-layui.js}" charset="utf-8"></script>
+
+<script>
+    layui.use(['laydate','element','layer','form'], function(){
+        $ = layui.jquery;//jquery
+        lement = layui.element();//面包导航
+        layer = layui.layer;//弹出层
+        form = layui.form();
+        laydate = layui.laydate;//日期插件
+        okLoading.close($);
+        form.render();
+
+
+        //监听提交
+        form.on('submit(add)', function(data){
+            var data=data.field;
+            $.ajax({
+                type:"post",
+                url:"/commodity/addCommodity",
+                data:data,
+                dataType:"json",
+                success:function(data){
+                    if(data.code==1){
+                        layer.msg(data.message, {icon: 6,time:2000},function () {
+                            window.parent.location.reload();
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                        });
+                    }
+                    else{
+                        layer.msg(data.message,{icon:5,time:2000});
+                    }
+                }
+
+            });
+            return false;
+        });
+    });
+</script>
+<!--栏目缩略图上传-->
+<script>
+    function upload(obj){
+        var formData = new FormData();
+
+        for (var i=0;i<$("#previewImg")[0].files.length;i++){
+            formData.append("images",$("#previewImg")[0].files[i])
+        }
+        // formData.append('images', $('#previewImg')[0].files[0]);
+        layer.msg('图片上传中', {icon: 16});
+        $.ajax({
+            type:"post",
+            processData: false,
+            contentType: false,
+            url:"/commodity/uploadImg",
+            data:formData,
+            success:function(data){
+                if(data.code == 1){
+                    console.log(data.pathArray.length);
+                    layer.closeAll('loading');
+                    var html = '';
+                    for (var i = 0; i < data.pathArray.length; i++) {
+                        html += '<img id="pimages" name="pimages" src="http://localhost:8080/lrx'+data.pathArray[i]+'" style="width: 100px;height: 50px;">';
+                        html += '<input name="pictureAddress['+i+']" type="hidden" value="'+data.pathArray[i]+'">'
+                    }
+                    $(".imgs").html(html);
+                    $(".imgs").show();
+                    layer.msg(data.message,{icon:6,time:2000});
+                }else{
+                    layer.msg(data.info,{icon:2,time:1000});
+                }
+            }
+        });
+        return false;
+    }
+</script>
+
+</body>
+</html>

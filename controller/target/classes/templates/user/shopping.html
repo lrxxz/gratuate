@@ -1,0 +1,206 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<title>
+		商品列表
+	</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" th:href="@{/css/main.css}" media="all">
+	<link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+</head>
+<body>
+<div class="x-body">
+	<xblock>
+		<button class="layui-btn layui-btn-blue" onclick="delAll()">
+			<i class="layui-icon">&#xe65e;</i>批量结算
+		</button>
+		<span class="x-right" style="line-height:40px">共有数据：<span th:text="${shops.size()}" class="layui-badge"></span> 条</span>
+	</xblock>
+	<table class="layui-table">
+		<thead>
+		<tr>
+			<th>
+				<input type="checkbox">
+			</th>
+			<th>
+				ID
+			</th>
+			<th>
+				商品名称
+			</th>
+			<th>
+				商品单价
+			</th>
+			<th>
+				商品数量
+			</th>
+			<th>
+				商品图片
+			</th>
+			<th>
+				操作
+			</th>
+		</tr>
+		</thead>
+		<tbody id="x-img">
+		<tr th:each="shop:${shops}">
+			<td>
+				<input type="checkbox" th:value="${shop.getId()}" name="id">
+			</td>
+			<td th:text="${shop.getId()}"></td>
+			<td th:text="${shop.getCommodityStrator().getCommodityName()}"></td>
+			<td th:text="${shop.getCommodityStrator().getCommodityPrice()}"></td>
+			<td th:onblur="|numAdd(this,${shop.getId()})|" contentEditable="true" th:text="${shop.getShopNum()}"></td>
+			<td>
+				<img th:src="@{@{http://localhost:8080/lrx}+${shop.getCommodityStrator().getCommodityPictures().get(0).getPictureAddress()}}" width="50" height="30">
+			</td>
+			<td class="td-manage">
+				<a title="结算" href="javascript:;" th:onclick="|personnel_del(this,${shop.getId()})|"
+				   style="text-decoration:none">
+					<i class="layui-icon">&#xe65e;</i>
+				</a>
+				<a title="删除" href="javascript:;" th:onclick="|shop_del(this,${shop.getId()})|"
+				   style="text-decoration:none">
+					<i class="layui-icon">&#xe640;</i>
+				</a>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+</div>
+<script th:src="@{/lib/layui/layui.js}" charset="utf-8"></script>
+<script th:src="@{/js/x-layui.js}" charset="utf-8"></script>
+<script>
+	layui.use(['laydate','element','laypage','layer'], function(){
+		$ = layui.jquery;//jquery
+		laydate = layui.laydate;//日期插件
+		lement = layui.element();//面包导航
+		laypage = layui.laypage;//分页
+		layer = layui.layer;//弹出层
+
+		//以上模块根据需要引入
+		layer.ready(function(){ //为了layer.ext.js加载完毕再执行
+			layer.photos({
+				photos: '#x-img'
+				//,shift: 5 //0-6的选择，指定弹出图片动画类型，默认随机
+			});
+		});
+	});
+
+	//批量结算提交
+	function delAll () {
+		layer.confirm('确认要结算吗？',function(index){
+			//捉到所有被选中的，进行删除
+			var id_list=document.getElementsByName("id");
+			var idArray = new Array();
+			for(var i=0;i<id_list.length;i++) {
+				if (id_list[i].checked == true) {//选中为true
+					var id = id_list[i].value;
+					idArray.push(id);
+				}
+			}
+			if (idArray.length==0){
+				alert("请选择数据");
+				return;
+			}
+			$.ajax({
+				type:"post",
+				url:"/user/shopBalances",
+				async: false,
+				data:{"idArray":idArray},
+				dataType:"json",
+				success:function(data){
+					if(data.code==1){
+						layer.msg(data.message,{icon:6,time:1000});
+						window.location.href="/user/shopping"
+						return false;
+					} else{
+						layer.msg(data.message,{icon:5,time:2000});
+						return false;
+					}
+				}
+			});
+		});
+	}
+
+	/*结算*/
+	function personnel_del(obj,id){
+		layer.confirm('确认要结算吗？',{icon:3,title:'提示信息'},function(index){
+			$.ajax({
+				type:"post",
+				url:"/user/shopBalance",
+				async: false,
+				data:{id:id},
+				dataType:"json",
+				success:function(data){
+					if(data.code==1){
+						layer.msg(data.message,{icon:6,time:1000});
+						window.location.href="/user/shopping"
+						return false;
+					} else{
+						layer.msg(data.info,{icon:5,time:1000});return false;
+					}
+				}
+			});
+			//发异步删除数据
+			$(obj).parents("tr").remove();
+			layer.msg('已删除!',{icon:1,time:1000});
+		});
+	}
+
+	//商品数量+1
+	function numAdd(obj,id){
+		var num = $(obj).text()
+			$.ajax({
+				type:"post",
+				url:"/user/numAdd",
+				async: false,
+				data:{"id":id,
+				      "num":num},
+				dataType:"json",
+				success:function(data){
+					if(data.code==1){
+						window.location.href="/user/shopping"
+					} else{
+						layer.msg(data.info,{icon:5,time:1000});
+					}
+					return false;
+				}
+
+			});
+	}
+
+	function shop_del(obj,id){
+		layer.confirm('确认要将该商品移出购物车吗？',{icon:3,title:'提示信息'},function(index){
+			$.ajax({
+				type:"post",
+				url:"/user/deleteShop",
+				async: false,
+				data:{id:id},
+				dataType:"json",
+				success:function(data){
+					if(data.code==1){
+						layer.msg(data.message,{icon:6,time:1000});
+						window.location.href="/user/shopping"
+						return false;
+					} else{
+						layer.msg(data.info,{icon:5,time:1000});return false;
+					}
+				}
+			});
+			//发异步删除数据
+			$(obj).parents("tr").remove();
+			layer.msg('已删除!',{icon:1,time:1000});
+		});
+	}
+</script>
+
+</body>
+</html>

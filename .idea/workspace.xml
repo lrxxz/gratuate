@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="51b5c7aa-bc9f-4126-8872-788ad364087f" name="默认的" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="D:\mvnrep3.5.2" />
+        <option name="mavenHome" value="D:\maven库\apache-maven-3.5.2" />
+        <option name="userSettingsFile" value="D:\maven库\apache-maven-3.5.2\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1qhLEhkQD6QijfFpr312tExssgZ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="jdk.selected.JAVA_MODULE" value="1.8" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/controller/src/main/resources/templates" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="模块" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\idea\gratuate\controller\src\main\resources\templates" />
+      <recent name="D:\idea\gratuate\dao\src\main\resources\mybatis\mapper" />
+      <recent name="D:\idea\gratuate\controller\src\main\resources\templates\user" />
+      <recent name="D:\idea\gratuate\controller\src\main\resources\static\js" />
+      <recent name="D:\idea\gratuate\controller\src\main\resources\static\lib" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\idea\gratuate\controller\src\main\resources\templates" />
+      <recent name="D:\idea\gratuate\controller\src\main\resources\static\css\fonts" />
+      <recent name="D:\idea\gratuate\controller\src\main\resources\static" />
+      <recent name="D:\idea\gratuate\controller\src\main\resources\static\css" />
+      <recent name="D:\idea\gratuate\controller\src\main\resources\templates\user" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="org.lrx" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.ControllerApplication">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ControllerApplicationTests.contextLoads" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="controller" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.lrx.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.lrx.controller" />
+      <option name="MAIN_CLASS_NAME" value="org.lrx.controller.ControllerApplicationTests" />
+      <option name="METHOD_NAME" value="contextLoads" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ControllerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="controller" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.lrx.ControllerApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.ControllerApplicationTests.contextLoads" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="51b5c7aa-bc9f-4126-8872-788ad364087f" name="默认的" comment="" />
+      <created>1617526766530</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1617526766530</updated>
+      <workItem from="1617526767928" duration="1475000" />
+      <workItem from="1617528264519" duration="2533000" />
+      <workItem from="1617612318446" duration="747000" />
+      <workItem from="1617613525235" duration="2662000" />
+      <workItem from="1617612636382" duration="6781000" />
+      <workItem from="1617625953598" duration="570000" />
+      <workItem from="1617626546017" duration="905000" />
+      <workItem from="1617627478041" duration="2350000" />
+      <workItem from="1618647251197" duration="244000" />
+      <workItem from="1618647530190" duration="2911000" />
+      <workItem from="1618650506294" duration="37000" />
+      <workItem from="1619261624921" duration="2784000" />
+      <workItem from="1619872823252" duration="2867000" />
+      <workItem from="1619961377588" duration="3134000" />
+      <workItem from="1620045038306" duration="1571000" />
+      <workItem from="1620049647978" duration="788000" />
+      <workItem from="1620126629067" duration="7029000" />
+      <workItem from="1620195826854" duration="11498000" />
+      <workItem from="1620470741856" duration="1841000" />
+      <workItem from="1620522214069" duration="16136000" />
+      <workItem from="1620570982953" duration="1191000" />
+      <workItem from="1620630982164" duration="9622000" />
+      <workItem from="1620645030614" duration="51000" />
+      <workItem from="1620645399646" duration="279000" />
+      <workItem from="1620645759044" duration="933000" />
+      <workItem from="1620697466931" duration="4865000" />
+      <workItem from="1620714132972" duration="15391000" />
+      <workItem from="1620792192674" duration="154000" />
+      <workItem from="1620792621541" duration="15125000" />
+      <workItem from="1620872902756" duration="11523000" />
+      <workItem from="1620901178085" duration="12366000" />
+      <workItem from="1620973840546" duration="9483000" />
+      <workItem from="1621062640668" duration="11469000" />
+      <workItem from="1621149577049" duration="104000" />
+      <workItem from="1621168626872" duration="6000000" />
+      <workItem from="1621220093935" duration="6360000" />
+      <workItem from="1621247118826" duration="9319000" />
+      <workItem from="1621305091636" duration="4651000" />
+      <workItem from="1621341896120" duration="2807000" />
+      <workItem from="1621404022686" duration="1587000" />
+      <workItem from="1621422311192" duration="8792000" />
+      <workItem from="1621667989567" duration="9964000" />
+      <workItem from="1621772854329" duration="2664000" />
+      <workItem from="1622017902991" duration="3639000" />
+      <workItem from="1622179277762" duration="1715000" />
+      <workItem from="1622184184274" duration="1756000" />
+      <workItem from="1622186117525" duration="966000" />
+      <workItem from="1622187196429" duration="11008000" />
+      <workItem from="1622265349567" duration="2137000" />
+      <workItem from="1622268354460" duration="8969000" />
+      <workItem from="1622361496314" duration="7969000" />
+      <workItem from="1622444287887" duration="1911000" />
+      <workItem from="1622461813652" duration="7224000" />
+      <workItem from="1622542695577" duration="84000" />
+      <workItem from="1622882794839" duration="2122000" />
+      <workItem from="1622983592386" duration="919000" />
+      <workItem from="1623310959915" duration="1927000" />
+      <workItem from="1623313449557" duration="10870000" />
+      <workItem from="1623400931724" duration="4327000" />
+      <workItem from="1623498742786" duration="7646000" />
+      <workItem from="1623512713150" duration="956000" />
+      <workItem from="1623671306718" duration="2381000" />
+      <workItem from="1623676070135" duration="1542000" />
+      <workItem from="1623717558965" duration="1324000" />
+      <workItem from="1623721003523" duration="31000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

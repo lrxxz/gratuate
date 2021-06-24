@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.lrx.dao.ShopMapper">
+
+    <insert id="insertShop" parameterType="Shop">
+        insert into shop_strator(commodity_id,user_id,shop_num) values (#{commodityId},#{userId},#{shopNum})
+    </insert>
+
+    <select id="selectShop" resultType="integer">
+        select count(*) from shop_strator where commodity_id=#{commodityId} and user_id=#{userId}
+    </select>
+
+    <select id="selectCountShop" resultType="integer">
+        select count(*) from shop_strator where user_id=#{userId}
+    </select>
+
+    <select id="selectByUserShops" resultType="Shop">
+        select * from shop_strator where user_id=#{userId}
+    </select>
+
+    <select id="selectOneShop" resultType="Shop">
+        select * from shop_strator where id = #{id}
+    </select>
+
+    <delete id="deleteShop" >
+        delete from shop_strator where id = #{id}
+    </delete>
+
+    <delete id="deleteShops" parameterType="list">
+        delete from shop_strator where id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="selectShopsByIds" parameterType="list" resultType="Shop">
+        select * from shop_strator where id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <!-- 订单查询 -->
+
+    <insert id="insertOrder" parameterType="Order">
+        insert into order_strator(user_id,commodity_id,order_status,order_price,order_num,order_date)
+        values (#{userId},#{commodityId},#{orderStatus},#{orderPrice},#{orderNum},#{orderDate})
+    </insert>
+
+    <select id="selectCountOrder" resultType="integer">
+        select count(*) from order_strator where user_id=#{userId}
+    </select>
+
+    <select id="selectByUserOrder" resultType="Order">
+        select * from order_strator where user_id=#{userId}
+    </select>
+
+    <delete id="deleteOrder">
+        delete from order_strator where id = #{id}
+    </delete>
+
+    <update id="updateOrderStatus" parameterType="integer">
+        update order_strator set order_status = 2 where id = #{id};
+    </update>
+
+    <update id="updateOrderStatus2" parameterType="integer">
+        update order_strator set order_status = 1 where id = #{id};
+    </update>
+
+    <select id="selectAllOrder" resultType="Order">
+        select * from order_strator
+    </select>
+
+    <update id="numAdd">
+        update shop_strator set shop_num = #{num} where id = #{id};
+    </update>
+</mapper>
